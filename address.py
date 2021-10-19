@@ -5,46 +5,64 @@
 # This program gets info from user and shows their address
 
 
-def app_check(apartment=None):
-    # return apartment
+def address_formatted(
+    full_name, street_num, street_name, city, province, postal_code, apt_number=None
+):
+    # return the full formal name
 
-    # process
-    app_live = apartment
-    if apartment != None:
-        app_live = app_live + " " + apartment[0]
-    app_live = ""
+    formatted = full_name
+    if apt_number is not None:
+        formatted = "{0} \n{1} - {2} {3} \n{4} {5}  {6}".format(
+            full_name,
+            apt_number,
+            street_num,
+            street_name,
+            city,
+            province,
+            postal_code,
+        )
+    else:
+        formatted = "{0} \n{1} {2} \n{3} {4}  {5} ".format(
+            full_name,
+            street_num,
+            street_name,
+            city,
+            province,
+            postal_code,
+        )
 
-    return app_live
+    return formatted
 
 
 def main():
-    # user answers prompts and outputs mailing address
-    apartment = None
+    # gets users info to format to send package
+    apt_number = None
 
-    # input & output
-    full = input("Enter your full name: ")
-    question = input("Do you live in an apartment? (y/n): ")
+    full_name = input("Enter your full name: ")
+    question = input("Do you live in an apartement? (y/n): ")
     if question.upper() == "Y" or question.upper() == "YES":
-        apartment = input("Enter your apartment number: ")
+        apt_number = input("Enter your apartment number: ")
     street_num = input("Enter your street number: ")
-    street = input("Enter your street name AND type (Main St, Express Pkwy…): ")
-    city = input("Enter your city name: ")
-    province = input("Enter your province (as an abbreviation, ex: ON, BC): ")
-    postal = input("Enter your postal code (123 456): ")
+    street_name = input("Enter your street name AND type (Main St...): ")
+    city = input("Enter your city: ")
+    province = input("Enter your province (short form): ")
+    postal_code = input("Enter your postal code: ")
 
-    if question.upper() == "Y" or question.upper() == "YES":
-        prompt_list = app_check(apartment)
-        print("\n" + full.upper())
-        print(apartment + "-" + street_num.upper(), street.upper())
-        print(city.upper(), province.upper(), "", postal.upper())
-
+    if apt_number is not None:
+        card = address_formatted(
+            full_name, street_num, street_name, city, province, postal_code, apt_number
+        )
     else:
-        prompt_list = app_check(apartment)
-        print("\n" + full.upper())
-        print(street_num.upper(), street.upper())
-        print(city.upper(), province.upper(), "", postal.upper())
+        card = address_formatted(
+            full_name, street_num, street_name, city, province, postal_code
+        )
 
-    print(prompt_list)
+    card_up = card.upper()
+
+    print("\n")
+    print(card_up)
+    print("")
+    print("\nDone.")
 
 
 if __name__ == "__main__":

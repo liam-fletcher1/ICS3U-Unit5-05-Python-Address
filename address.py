@@ -35,11 +35,11 @@ def address_formatted(
 
 
 def main():
-    # gets users info to format to send package
+    # gets users info to format
     apt_number = None
 
     full_name = input("Enter your full name: ")
-    question = input("Do you live in an apartement? (y/n): ")
+    question = input("Do you live in an apartment? (y/n): ")
     if question.upper() == "Y" or question.upper() == "YES":
         apt_number = input("Enter your apartment number: ")
     street_num = input("Enter your street number: ")
@@ -47,6 +47,11 @@ def main():
     city = input("Enter your city: ")
     province = input("Enter your province (short form): ")
     postal_code = input("Enter your postal code: ")
+    
+    if apt_number or street_num < 0:
+        print("")
+        print("Theses are invaild numbers.")
+        print("\nDone.")
 
     if apt_number is not None:
         card = address_formatted(
